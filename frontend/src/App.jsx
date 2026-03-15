@@ -1,6 +1,10 @@
 import {useEffect,useState} from "react"
 import axios from "axios"
 
+import Navbar from "./components/Navbar"
+import BankCard from "./components/BankCard"
+import BankChart from "./BankChart"
+
 function App(){
 
 const [banks,setBanks]=useState([])
@@ -17,22 +21,29 @@ bank.name.toLowerCase().includes(search.toLowerCase())
 
 return(
 
-<div>
+<div className="bg-gray-100 min-h-screen">
 
-<h1>Know Your Bank</h1>
+<Navbar/>
+
+<div className="p-8">
 
 <input
-placeholder="Search bank"
+className="border p-2 mb-6 w-full"
+placeholder="Search bank..."
 onChange={(e)=>setSearch(e.target.value)}
 />
 
+<div className="grid grid-cols-3 gap-6">
+
 {filtered.map((bank,index)=>(
-<div key={index}>
-<h2>{bank.name}</h2>
-<p>{bank.type} Bank</p>
-<p>FD Rate: {bank.fd_rate}%</p>
-</div>
+<BankCard bank={bank} key={index}/>
 ))}
+
+</div>
+
+<BankChart/>
+
+</div>
 
 </div>
 
